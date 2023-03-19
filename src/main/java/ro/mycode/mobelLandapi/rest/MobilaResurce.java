@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.mycode.mobelLandapi.dtos.FurnitureDTO;
+import ro.mycode.mobelLandapi.model.Mobila;
 import ro.mycode.mobelLandapi.service.MobilaService;
 
 import javax.validation.Valid;
@@ -22,6 +23,12 @@ public class MobilaResurce {
     ResponseEntity deleteByDenumire(@PathVariable String denumire){
         this.mobilaService.deleteMobilaByDenumire(denumire);
         return  new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/add")
+    public  ResponseEntity addMobila(@RequestBody Mobila mobila){
+        mobilaService.addMobila(mobila);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping("/update")
