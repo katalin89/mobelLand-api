@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/mobila")
+@CrossOrigin
 public class MobilaResurce {
 
     private MobilaService mobilaService;
