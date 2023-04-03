@@ -34,10 +34,20 @@ public class MobilaService {
     }
 
     public void deleteMobilaByDenumire(String denumire) throws FornitureNotFoundException {
-        Mobila byDenumire = mobilaRepo.findMobilasByDenumire(denumire);
+        Mobila byDenumire = mobilaRepo.findMobilaByDenumire(denumire);
         if (byDenumire != null) {
             mobilaRepo.deleteMobilaByDenumire(denumire);
         } else {
+            throw new FornitureNotFoundException();
+        }
+    }
+
+    public  void deleteById(Long id)throws FornitureNotFoundException{
+        Mobila byId=mobilaRepo.fintMobilaById( id);
+
+        if(byId!=null){
+            mobilaRepo.deleteById(id);
+        }else{
             throw new FornitureNotFoundException();
         }
     }
@@ -58,7 +68,7 @@ public class MobilaService {
     @Modifying
 
     public  void update(@RequestBody FurnitureDTO mobila,String denumire) throws FornitureNotFoundException{
-        Mobila m=mobilaRepo.findMobilasByDenumire(mobila.getDenumire());
+        Mobila m=mobilaRepo.findMobilaByDenumire(mobila.getDenumire());
 
         if(m==null){
             throw  new FornitureNotFoundException();
@@ -79,4 +89,21 @@ public class MobilaService {
             m.setPret(mobila.getPret());
         }
     }
+
+    public List<Mobila>sortByCuloare(){
+        return mobilaRepo.sortByCulare();
+    }
+
+    public List<Mobila>sortByDenumire(){
+        return  mobilaRepo.sortByDenumire();
+    }
+
+    public List<Mobila>sortByMaterial(){
+        return  mobilaRepo.sortByMaterial();
+    }
+
+    public List<Mobila>sortByPret(){
+        return mobilaRepo.sortByPret();
+    }
+
 }

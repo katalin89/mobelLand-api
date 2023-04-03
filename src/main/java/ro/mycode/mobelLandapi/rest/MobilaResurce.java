@@ -8,6 +8,7 @@ import ro.mycode.mobelLandapi.model.Mobila;
 import ro.mycode.mobelLandapi.service.MobilaService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/mobila")
@@ -17,13 +18,26 @@ public class MobilaResurce {
     private MobilaService mobilaService;
 
     public MobilaResurce(MobilaService mobilaService){
+
         this.mobilaService=mobilaService;
     }
 
-    @GetMapping("/deleteByDenumire/{denumire}")
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Mobila>> getAllMobile(){
+        List<Mobila>allMobile=mobilaService.getAllMobile();
+        return  new ResponseEntity<>(allMobile,HttpStatus.OK);
+    }
+    @DeleteMapping("/deleteByDenumire/{denumire}")
     ResponseEntity deleteByDenumire(@PathVariable String denumire){
         this.mobilaService.deleteMobilaByDenumire(denumire);
         return  new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    ResponseEntity deleteById(@PathVariable Long id){
+        this.mobilaService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/add")
@@ -37,4 +51,25 @@ public class MobilaResurce {
         this.mobilaService.update(mobila,denumire);
         return  new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/sortByDenumire")
+    public List<Mobila>sortByDenumire(){
+        return mobilaService.sortByDenumire();
+    }
+
+    @GetMapping("/sortByCuloare")
+    public List<Mobila>sortByCuloare(){
+        return mobilaService.sortByCuloare();
+    }
+
+    @GetMapping("/Material")
+    public List<Mobila>sortByMaterial(){
+        return  mobilaService.sortByMaterial();
+    }
+
+    @GetMapping
+    public List<Mobila>sortByPret(){
+        return mobilaService.sortByPret();
+    }
+
 }

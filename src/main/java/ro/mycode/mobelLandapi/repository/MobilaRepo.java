@@ -27,7 +27,9 @@ public interface MobilaRepo extends JpaRepository<Mobila, Long> {
     @Query("delete from Mobila m where m.id=?1")
     void deleteById(int id);
 
-    Mobila findMobilasByDenumire(String denumire);
+    Mobila findMobilaByDenumire(String denumire);
+
+    Mobila fintMobilaById(Long id);
 
 
     @Transactional
@@ -48,7 +50,7 @@ public interface MobilaRepo extends JpaRepository<Mobila, Long> {
     @Transactional
     @Modifying
     @Query("select  distinct m from Mobila m order by m.pret")
-    List<Mobila>sortByNrDeLocuri();
+    List<Mobila>sortByPret();
 
     @Transactional
     @Modifying
